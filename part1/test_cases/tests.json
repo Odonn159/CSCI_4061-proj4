@@ -1,0 +1,78 @@
+{
+    "name": "Parallel World Length Count Tests",
+    "use_valgrind": true,
+    "tests": [
+        {
+            "name": "No Input Files",
+            "description": "Starts the par_word_lengths program with no additional command-line arguments",
+            "command": "./par_word_lengths",
+            "output_file": "test_cases/output/empty.txt"
+        },
+        {
+            "name": "Empty Input File",
+            "description": "Count word lengths in a single, empty file",
+            "command": "./par_word_lengths test_cases/resources/empty.txt",
+            "output_file": "test_cases/output/empty_file_count.txt"
+        },
+        {
+            "name": "One-Word Input File",
+            "description": "Count word lengths in just one file containing a single word",
+            "command": "./par_word_lengths test_cases/resources/one_word.txt",
+            "output_file": "test_cases/output/one_word.txt"
+        },
+        {
+            "name": "Non-Existent File",
+            "description": "Attempt to count word lengths in a non-existent file",
+            "command": "./par_word_lengths not_a_file.txt",
+            "output_file": "test_cases/output/non_existent_file.txt"
+        },
+        {
+            "name": "Multi-Word Input File",
+            "description": "Count word lengths in just one file containing several words",
+            "command": "./par_word_lengths test_cases/resources/multi_word.txt",
+            "output_file": "test_cases/output/multi_word.txt"
+        },
+        {
+            "name": "Two Single-Word Input Files",
+            "description": "Count words in two files, each containing one word",
+            "command": "./par_word_lengths test_cases/resources/one_word.txt test_cases/resources/one_word_2.txt",
+            "output_file": "test_cases/output/two_one_words.txt"
+        },
+        {
+            "name": "Two Multi-Word Input Files",
+            "description": "Count word lengths in two files, each containing multiple words",
+            "command": "./par_word_lengths test_cases/resources/multi_word.txt test_cases/resources/multi_word_2.txt",
+            "output_file": "test_cases/output/two_multi_words.txt"
+        },
+        {
+            "name": "Several Multi-Word Input Files",
+            "description": "Count word lengths in a several files, each containing multiple words on one line",
+            "command": "./par_word_lengths test_cases/resources/single_line.txt test_cases/resources/single_line_2.txt test_cases/resources/single_line_3.txt test_cases/resources/single_line_4.txt",
+            "output_file": "test_cases/output/several_multi_words.txt"
+        },
+        {
+            "name": "One Multi-Line Input File",
+            "description": "Count word lengths in a file with words on multiple lines",
+            "command": "./par_word_lengths test_cases/resources/multi_line.txt",
+            "output_file": "test_cases/output/multi_line.txt"
+        },
+        {
+            "name": "Several Multi-Line Input Files",
+            "description": "Count word lengths in several files, each with words on multiple lines",
+            "command": "./par_word_lengths test_cases/resources/multi_line.txt test_cases/resources/multi_line_2.txt test_cases/resources/multi_line_3.txt test_cases/resources/multi_line_4.txt",
+            "output_file": "test_cases/output/several_multi_line.txt"
+        },
+        {
+            "name": "Single Large Input File",
+            "description": "Count word lengths in one large text file",
+            "command": "./par_word_lengths test_cases/resources/large.txt",
+            "output_file": "test_cases/output/single_large.txt"
+        },
+        {
+            "name": "Several Large Input Files",
+            "description": "Count word lengths in several large text files",
+            "command": "./par_word_lengths test_cases/resources/large.txt test_cases/resources/large_2.txt test_cases/resources/large_3.txt",
+            "output_file": "test_cases/output/multi_large.txt"
+        }
+    ]
+}
