@@ -1,2 +1,0 @@
-@> cat < test_cases/resources/numbers.txt | sort -rn | tail -n 10
-@> exit
