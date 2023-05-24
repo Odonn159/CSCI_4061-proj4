@@ -1,32 +1,36 @@
 CFLAGS = -Wall -Werror -g
 CC = gcc $(CFLAGS)
+port = 8000
 
-swish: swish.c string_vector.o swish_funcs.o swish_funcs_provided.o
-	$(CC) -o $@ $^
+.PHONY: all test test-setup clean clean-tests zip
 
-string_vector.o: string_vector.h string_vector.c
-	$(CC) -c string_vector.c
+all: http_server concurrent_open.so
 
-swish_funcs.o: string_vector.o swish_funcs.c
-	$(CC) -c swish_funcs.c
+http_server: http_server.c http.o connection_queue.o
+	$(CC) -o $@ $^ -lpthread
 
-clean:
-	rm -f swish string_vector.o swish_funcs.o
+http.o: http.c http.h
+	$(CC) -c http.c
+
+connection_queue.o: connection_queue.c connection_queue.h
+	$(CC) -c connection_queue.c
+
+concurrent_open.so: concurrent_open.c
+	$(CC) $(CFLAGS) -shared -fpic -o $@ $^ -ldl
 
 test-setup:
 	@chmod u+x testius
-	@rm -f out.txt
+	@rm -rf downloaded_files
 
-ifdef testnum
-test: test-setup swish
-	./testius test_cases/tests.json -v -n $(testnum)
-else
-test: swish
-	./testius test_cases/tests.json
-endif
+test: test-setup http_server clean-tests concurrent_open.so
+	PORT=$(port) ./testius test_cases/tests.json -v
+
+clean:
+	rm -rf *.o concurrent_open.so http_server
 
 clean-tests:
-	rm -rf test_results out.txt
+	rm -rf test_results
+	rm -rf downloaded_files
 
 zip:
-	@echo "ERROR: You cannot run 'make zip' from the part2 subdirectory. Change to the main proj3-code directory and run 'make zip' there."
+	@echo "ERROR: You cannot run 'make zip' from the part2 subdirectory. Change to the main proj4-code directory and run 'make zip' there."

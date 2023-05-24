@@ -3,7 +3,7 @@
 # Author: John Kolb <jhkolb@umn.edu>
 # Inspired by Chris Kauffman's original 'testy' utility
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Version 0.2.7
+# Version 0.2.8
 # Requires Python 3.7 or above
 # Tested in Linux environments only
 
@@ -300,6 +300,15 @@ class TestCase:
                 environment["PS1"] = BASH_PROMPT
             else:
                 environment = { "PS1": BASH_PROMPT }
+        # We still want to inherit system environment, but custom vars take priority
+        if environment is None:
+            environment = dict(os.environ)
+        else:
+            # In Python 3.9 and above, can use "|" operator for this
+            base_environment = dict(os.environ)
+            for k,v in environment.items():
+                base_environment[k] = v
+            environment = base_environment
 
         point_value = d.get("points")
         if point_value is not None:
